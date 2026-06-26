@@ -5,57 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mobile Price</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f5f5f5;
-        }
-        h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #222;
-        }
-        input[type="number"] {
-            padding: 10px;
-            font-size: 16px;
-            width: 250px;
-            border: 1px solid #aaa;
-            border-radius: 4px;
-            margin-bottom: 20px;
-        }
-        button {
-            padding: 10px 25px;
-            font-size: 16px;
-            cursor: pointer;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 6px;
-        }
-        button:hover {
-            background-color: #1e7e34;
-        }
+        body { font-family: Arial, sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; background: #f5f5f5; }
+        h1 { font-size: 22px; margin-bottom: 20px; color: #222; text-align: center; padding: 0 20px; }
+        input[type="number"] { padding: 10px; font-size: 16px; width: 250px; border: 1px solid #aaa; border-radius: 4px; margin-bottom: 20px; }
+        button { padding: 10px 25px; font-size: 16px; cursor: pointer; background: #28a745; color: white; border: none; border-radius: 6px; }
+        button:hover { background: #1e7e34; }
     </style>
 </head>
 <body>
     <h1>Enter Original Price Of Old Phone For Exchange</h1>
     <input type="number" id="priceInput" placeholder="Enter amount here" />
     <button onclick="submitPrice()">Submit</button>
-
     <script>
         function submitPrice() {
             const price = document.getElementById('priceInput').value;
-            if (price === '' || price <= 0) {
-                alert('Please enter a valid amount!');
-                return;
-            }
-            // Next step meeru cheppina tarvata ikkada add chestam
-            alert('Submitted! Price: ₹' + price);
+            if (!price || price <= 0) { alert('Please enter a valid amount!'); return; }
+            localStorage.setItem('originalPrice', price);
+            localStorage.setItem('deductionTotal', 0);
+            window.location.href = 'Screen_Original.html';
         }
     </script>
 </body>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review & Submit</title>
+    <style>
+        body { font-family: Arial, sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; background: #f5f5f5; padding: 20px; box-sizing: border-box; }
+        h2 { font-size: 22px; margin-bottom: 20px; color: #222; }
+        .summary-box { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 20px; width: 100%; max-width: 350px; margin-bottom: 20px; }
+        .row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #eee; font-size: 15px; }
+        .row:last-child { border-bottom: none; font-weight: bold; font-size: 17px; color: #007bff; }
+        button { padding: 12px 35px; font-size: 18px; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 6px; }
+        button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <h2>Ready To Submit</h2>
+    <div class="summary-box" id="summaryBox"></div>
+    <button onclick="window.location.href='Submit.html'">Submit</button>
+    <script>
+        const price = parseFloat(localStorage.getItem('originalPrice')) || 0;
+        const deduct = parseFloat(localStorage.getItem('deductionTotal')) || 0;
+        const finalPrice = price - deduct;
+        const box = document.getElementById('summaryBox');
+        box.innerHTML = `
+            <div class="row"><span>Original Price:</span><span>₹${price.toFixed(2)}</span></div>
+            <div class="row"><span>Total Deduction:</span><span>- ₹${deduct.toFixed(2)}</span></div>
+            <div class="row"><span>Exchange Value:</span><span>₹${finalPrice.toFixed(2)}</span></div>
+        `;
+        localStorage.setItem('finalPrice', finalPrice.toFixed(2));
+        localStorage.setItem('deductAmount', deduct.toFixed(2));
+    </script>
+</body>
+</html>
