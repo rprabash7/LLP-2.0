@@ -7,9 +7,14 @@
     <style>
         body { font-family: Arial, sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; background: #f5f5f5; padding: 20px; box-sizing: border-box; }
         h2 { font-size: 22px; margin-bottom: 20px; color: #222; }
-        .summary-box { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 20px; width: 100%; max-width: 350px; margin-bottom: 20px; }
+        .summary-box { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 20px; width: 100%; max-width: 350px; margin-bottom: 16px; }
         .row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #eee; font-size: 15px; }
         .row:last-child { border-bottom: none; font-weight: bold; font-size: 17px; color: #007bff; }
+        .input-group { width: 100%; max-width: 350px; margin-bottom: 16px; }
+        .input-group label { font-size: 15px; color: #444; display: block; margin-bottom: 6px; }
+        .input-group input { width: 100%; padding: 10px; font-size: 16px; border: 1px solid #aaa; border-radius: 6px; box-sizing: border-box; }
+        .pay-box { background: white; border: 2px solid #28a745; border-radius: 8px; padding: 14px 20px; width: 100%; max-width: 350px; margin-bottom: 20px; display: none; }
+        .pay-row { display: flex; justify-content: space-between; font-size: 17px; font-weight: bold; color: #28a745; }
         button { padding: 12px 35px; font-size: 18px; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 6px; }
         button:hover { background: #0056b3; }
     </style>
@@ -17,19 +22,53 @@
 <body>
     <h2>Ready To Submit</h2>
     <div class="summary-box" id="summaryBox"></div>
-    <button onclick="window.location.href='Submit.html'">Submit</button>
+
+    <div class="input-group">
+        <label>Enter New Phone Price (₹)</label>
+        <input type="number" id="newPhonePrice" placeholder="e.g. 20000" oninput="calcCustomerPay()" />
+    </div>
+
+    <div class="pay-box" id="payBox">
+        <div class="pay-row">
+            <span>Customer Pays:</span>
+            <span id="customerPay">₹0</span>
+        </div>
+    </div>
+
+    <button onclick="goToSubmit()">Submit</button>
+
     <script>
         const price = parseFloat(localStorage.getItem('originalPrice')) || 0;
         const deduct = parseFloat(localStorage.getItem('deductionTotal')) || 0;
         const finalPrice = price - deduct;
-        const box = document.getElementById('summaryBox');
-        box.innerHTML = `
-            <div class="row"><span>Original Price:</span><span>₹${price.toFixed(2)}</span></div>
+        localStorage.setItem('finalPrice', finalPrice.toFixed(2));
+        localStorage.setItem('deductAmount', deduct.toFixed(2));
+
+        document.getElementById('summaryBox').innerHTML = `
+            <div class="row"><span>Old Phone Original Price:</span><span>₹${price.toFixed(2)}</span></div>
             <div class="row"><span>Total Deduction:</span><span>- ₹${deduct.toFixed(2)}</span></div>
             <div class="row"><span>Exchange Value:</span><span>₹${finalPrice.toFixed(2)}</span></div>
         `;
-        localStorage.setItem('finalPrice', finalPrice.toFixed(2));
-        localStorage.setItem('deductAmount', deduct.toFixed(2));
+
+        function calcCustomerPay() {
+            const newPrice = parseFloat(document.getElementById('newPhonePrice').value) || 0;
+            const customerPay = newPrice - finalPrice;
+            const payBox = document.getElementById('payBox');
+            if (newPrice > 0) {
+                payBox.style.display = 'block';
+                document.getElementById('customerPay').textContent = customerPay > 0 ? '₹' + customerPay.toFixed(2) : '₹0 (Exchange covers full price!)';
+                localStorage.setItem('newPhonePrice', newPrice.toFixed(2));
+                localStorage.setItem('customerPayAmount', customerPay > 0 ? customerPay.toFixed(2) : '0');
+            } else {
+                payBox.style.display = 'none';
+            }
+        }
+
+        function goToSubmit() {
+            const newPrice = parseFloat(document.getElementById('newPhonePrice').value) || 0;
+            if (!newPrice || newPrice <= 0) { alert('Please enter New Phone Price!'); return; }
+            window.location.href = 'Submit.html';
+        }
     </script>
 </body>
 </html>

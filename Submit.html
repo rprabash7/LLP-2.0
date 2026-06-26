@@ -3,36 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exchange Result</title>
+    <title>Payment</title>
     <style>
         body { font-family: Arial, sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; background: #f5f5f5; padding: 20px; box-sizing: border-box; }
-        h2 { font-size: 22px; margin-bottom: 20px; color: #222; }
-        .result-box { background: white; border: 2px solid #28a745; border-radius: 10px; padding: 25px; width: 100%; max-width: 350px; text-align: center; margin-bottom: 25px; }
-        .label { font-size: 15px; color: #555; margin-bottom: 5px; }
-        .amount { font-size: 32px; font-weight: bold; color: #28a745; margin: 10px 0; }
-        .deduct { font-size: 14px; color: #dc3545; margin-top: 5px; }
-        .original { font-size: 14px; color: #888; }
-        button { padding: 12px 30px; font-size: 16px; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 6px; }
-        button:hover { background: #0056b3; }
-        .tick { font-size: 50px; margin-bottom: 10px; }
+        h2 { font-size: 22px; margin-bottom: 16px; color: #222; }
+        .result-box { background: white; border: 1px solid #ddd; border-radius: 10px; padding: 20px; width: 100%; max-width: 350px; margin-bottom: 20px; }
+        .row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #eee; font-size: 15px; }
+        .row.highlight { border-bottom: none; font-weight: bold; font-size: 18px; color: #28a745; margin-top: 4px; }
+        .qr-section { background: white; border: 2px solid #007bff; border-radius: 10px; padding: 20px; width: 100%; max-width: 350px; text-align: center; margin-bottom: 20px; }
+        .qr-section h3 { font-size: 17px; color: #007bff; margin-bottom: 6px; }
+        .qr-section p { font-size: 13px; color: #666; margin-bottom: 12px; }
+        .qr-section img { width: 200px; height: 200px; border: 1px solid #ddd; border-radius: 6px; }
+        .upi-id { font-size: 14px; color: #444; margin-top: 10px; font-weight: bold; }
+        .pay-amount { font-size: 22px; font-weight: bold; color: #dc3545; margin: 8px 0; }
+        .btn-group { display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 350px; }
+        button { padding: 12px 30px; font-size: 16px; cursor: pointer; border: none; border-radius: 6px; color: white; }
+        .btn-new { background: #007bff; }
+        .btn-new:hover { background: #0056b3; }
+        .tick { font-size: 40px; margin-bottom: 8px; }
     </style>
 </head>
 <body>
     <h2>Exchange Inspection Complete</h2>
+
     <div class="result-box">
-        <div class="tick">✅</div>
-        <div class="label">Original Price</div>
-        <div class="original" id="origPrice"></div>
-        <div class="label" style="margin-top:12px;">Total Deduction</div>
-        <div class="deduct" id="deductAmt"></div>
-        <div class="label" style="margin-top:12px;">Final Exchange Value</div>
-        <div class="amount" id="finalAmt"></div>
+        <div class="row"><span>Old Phone Original Price:</span><span id="origPrice"></span></div>
+        <div class="row"><span>Total Deduction:</span><span id="deductAmt" style="color:#dc3545;"></span></div>
+        <div class="row"><span>Exchange Value:</span><span id="exchangeVal" style="color:#28a745;"></span></div>
+        <div class="row"><span>New Phone Price:</span><span id="newPhone"></span></div>
+        <div class="row highlight"><span>Customer Pays:</span><span id="custPay"></span></div>
     </div>
-    <button onclick="window.location.href='index.html'">Start New Inspection</button>
+
+    <div class="qr-section">
+        <h3>Scan & Pay</h3>
+        <img id="qrImg" src="" alt="UPI QR Code" />
+        <div class="upi-id">UPI ID: prabash19@ibl</div>
+        <div class="pay-amount" id="qrPayAmount"></div>
+    </div>
+
+    <div class="btn-group">
+        <button class="btn-new" onclick="window.location.href='index.html'">Start New Inspection</button>
+    </div>
+
     <script>
-        document.getElementById('origPrice').textContent = '₹' + (localStorage.getItem('originalPrice') || '0');
-        document.getElementById('deductAmt').textContent = '- ₹' + (localStorage.getItem('deductAmount') || '0');
-        document.getElementById('finalAmt').textContent = '₹' + (localStorage.getItem('finalPrice') || '0');
+        const origPrice = localStorage.getItem('originalPrice') || '0';
+        const deductAmt = localStorage.getItem('deductAmount') || '0';
+        const finalPrice = localStorage.getItem('finalPrice') || '0';
+        const newPhonePrice = localStorage.getItem('newPhonePrice') || '0';
+        const customerPay = localStorage.getItem('customerPayAmount') || '0';
+
+        document.getElementById('origPrice').textContent = '₹' + origPrice;
+        document.getElementById('deductAmt').textContent = '- ₹' + deductAmt;
+        document.getElementById('exchangeVal').textContent = '₹' + finalPrice;
+        document.getElementById('newPhone').textContent = '₹' + newPhonePrice;
+        document.getElementById('custPay').textContent = '₹' + customerPay;
+        document.getElementById('qrPayAmount').textContent = 'Amount: ₹' + customerPay;
+
+        // Generate UPI QR Code
+        const upiId = 'prabash19@ibl';
+        const payeeName = 'LLP 2.0';
+        const amount = customerPay;
+        const upiString = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(payeeName)}&am=${amount}&cu=INR&tn=${encodeURIComponent('Mobile Exchange Payment')}`;
+        const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiString)}`;
+        document.getElementById('qrImg').src = qrUrl;
     </script>
 </body>
 </html>
