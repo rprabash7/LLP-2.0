@@ -2,88 +2,78 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Payment</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exchange Result</title>
     <style>
         * { box-sizing: border-box; }
-        body { font-family: Arial, sans-serif; margin: 0; min-height: 100vh; background: #fff; }
-        .page { min-height: 100vh; display: flex; flex-direction: column; }
+        body { margin: 0; font-family: Arial, sans-serif; background: #f5f5f5; }
         .header { background: #a9d8ee; display: flex; align-items: center; justify-content: space-between; padding: 16px 18px; }
-        .menu-icon { font-size: 26px; color: #111; }
-        .header-title { font-size: 20px; font-weight: bold; color: #111; letter-spacing: 1px; }
+        .menu-icon, .right-icons span { font-size: 26px; color: #111; }
+        .header-title { font-size: 20px; font-weight: 700; color: #111; letter-spacing: 1px; }
         .right-icons { display: flex; gap: 18px; }
-        .right-icons span { font-size: 22px; color: #111; }
-        .content { padding: 22px 24px 24px; flex: 1; }
-        h1 { font-size: 30px; line-height: 1.15; color: #1f2937; margin: 6px 0 22px; font-weight: 700; }
-        .warning { display: flex; align-items: center; gap: 12px; background: #fff4c2; border: 1px solid #e2c35a; border-radius: 8px; padding: 16px 14px; margin-bottom: 18px; }
-        .warning-icon { font-size: 24px; color: #d4a000; flex: 0 0 auto; }
+        .instruction-bar { background: #232a31; color: white; padding: 14px 18px; font-size: 15px; }
+        .content { padding: 18px 18px 0; }
+        h1 { font-size: 30px; line-height: 1.2; color: #222; font-weight: 700; margin: 8px 0 22px; }
+        .warning { display: flex; align-items: center; gap: 12px; background: #fff4c2; border: 1px solid #e2c35a; border-radius: 8px; padding: 16px 14px; margin-bottom: 20px; }
+        .warning-icon { font-size: 24px; color: #d4a000; }
         .warning-text { font-size: 17px; line-height: 1.45; color: #3a3a3a; }
-        .option { display: flex; gap: 18px; padding: 20px 0; border-top: 1px solid #d9d9d9; cursor: pointer; }
-        .option:first-of-type { border-top: none; }
-        .radio { width: 34px; height: 34px; border: 2px solid #9a9a9a; border-radius: 50%; flex: 0 0 auto; margin-top: 6px; background: #fff; position: relative; }
-        .radio.selected::after { content: ''; position: absolute; inset: 7px; background: #0f6f8c; border-radius: 50%; }
+        .option { display: flex; align-items: center; gap: 18px; padding: 20px 0; border-top: 1px solid #ddd; }
+        .option:last-child { border-bottom: 1px solid #ddd; }
+        .radio { width: 36px; height: 36px; border: 2px solid #9a9a9a; border-radius: 50%; flex: 0 0 auto; }
+        .opt-wrap { flex: 1; }
         .option-title { font-size: 22px; font-weight: 700; color: #1f2937; margin-bottom: 8px; }
         .option-sub { font-size: 17px; line-height: 1.4; color: #2d2d2d; }
-        .bottom { padding: 18px 24px 28px; border-top: 1px solid #d9d9d9; background: #fff; }
+        .bottom { padding: 18px 18px 28px; border-top: 1px solid #ddd; background: #fff; margin-top: 18px; }
         .continue-btn { width: 100%; padding: 18px; font-size: 20px; border: none; border-radius: 6px; background: #d9e6ef; color: #8f9baa; }
-        .continue-btn.active { background: #0f6f8c; color: #fff; cursor: pointer; }
     </style>
 </head>
 <body>
-    <div class="page">
-        <div class="header">
-            <div class="menu-icon">&#9776;</div>
-            <div class="header-title">EXCHANGE</div>
-            <div class="right-icons"><span>&#128172;</span><span>?</span></div>
+    <div class="header">
+        <div class="menu-icon">&#9776;</div>
+        <div class="header-title">EXCHANGE</div>
+        <div class="right-icons"><span>&#128172;</span><span>?</span></div>
+    </div>
+    <div class="instruction-bar">Inspect Old Mobile</div>
+    <div class="content">
+        <h1>How would the customer like to proceed?</h1>
+        <div class="warning">
+            <div class="warning-icon">&#9888;</div>
+            <div class="warning-text">The exchanged item's value has been reduced due to reported damage</div>
         </div>
-        <div class="content">
-            <h1>How would the customer like to proceed?</h1>
-            <div class="warning">
-                <div class="warning-icon">&#9888;</div>
-                <div class="warning-text">The exchanged item's value has been reduced due to reported damage</div>
-            </div>
-            <div class="option" onclick="selectOption('exchange')">
-                <div class="radio" id="r1"></div>
-                <div><div class="option-title">Continue with exchange</div><div class="option-sub">Customer pays <span id="exPay">₹ 0.00</span></div></div>
-            </div>
-            <div class="option" onclick="selectOption('delivery')">
-                <div class="radio" id="r2"></div>
-                <div><div class="option-title">Get delivery without exchange</div><div class="option-sub">Customer pays <span id="delPay">₹ 0.00</span></div></div>
-            </div>
-            <div class="option" onclick="selectOption('cancel')">
-                <div class="radio" id="r3"></div>
-                <div><div class="option-title">Cancel delivery and exchange</div><div class="option-sub">Customer will be refunded what they paid and will not receive the new item.</div></div>
+        <div class="option">
+            <div class="radio"></div>
+            <div class="opt-wrap">
+                <div class="option-title">Continue with exchange</div>
+                <div class="option-sub">Customer pays <span id="exchangePay">₹ 0.00</span></div>
             </div>
         </div>
-        <div class="bottom">
-            <button class="continue-btn" id="continueBtn" disabled>Continue</button>
+        <div class="option">
+            <div class="radio"></div>
+            <div class="opt-wrap">
+                <div class="option-title">Get delivery without exchange</div>
+                <div class="option-sub">Customer pays <span id="deliveryPay">₹ 0.00</span></div>
+            </div>
+        </div>
+        <div class="option">
+            <div class="radio"></div>
+            <div class="opt-wrap">
+                <div class="option-title">Cancel delivery and exchange</div>
+                <div class="option-sub">Customer will be refunded what they paid and will not receive the new item.</div>
+            </div>
         </div>
     </div>
+    <div class="bottom">
+        <button class="continue-btn" disabled>Continue</button>
+    </div>
     <script>
-        let selected = '';
-        const orig = parseFloat(localStorage.getItem('originalPrice')) || 0;
-        const deduct = parseFloat(localStorage.getItem('deductionTotal')) || 0;
+        function num(v){ const n = parseFloat(v); return Number.isFinite(n) ? n : 0; }
+        const orig = num(localStorage.getItem('originalPrice'));
+        const deduct = num(localStorage.getItem('deductionTotal'));
         const finalPrice = Math.max(orig - deduct, 0);
-        const newPrice = parseFloat(localStorage.getItem('newPhonePrice')) || 0;
-        const customerPay = Math.max(newPrice - finalPrice, 0);
-        const withoutExchangePay = newPrice;
-        document.getElementById('exPay').textContent = '₹ ' + customerPay.toFixed(2);
-        document.getElementById('delPay').textContent = '₹ ' + withoutExchangePay.toFixed(2);
-        function clearSel(){['r1','r2','r3'].forEach(id=>document.getElementById(id).classList.remove('selected'));}
-        function selectOption(val){selected = val; clearSel(); if(val==='exchange') document.getElementById('r1').classList.add('selected'); if(val==='delivery') document.getElementById('r2').classList.add('selected'); if(val==='cancel') document.getElementById('r3').classList.add('selected'); const btn=document.getElementById('continueBtn'); btn.disabled=false; btn.classList.add('active');}
-        document.getElementById('continueBtn').onclick = function(){
-            if(!selected) return;
-            if(selected === 'exchange') {
-                localStorage.setItem('proceedChoice','exchange');
-                window.location.href = 'Exchange_Confirmed.html';
-            } else if(selected === 'delivery') {
-                localStorage.setItem('proceedChoice','delivery');
-                window.location.href = 'Delivery_Only.html';
-            } else {
-                localStorage.setItem('proceedChoice','cancel');
-                window.location.href = 'Cancel_Exchange.html';
-            }
-        }
+        localStorage.setItem('finalPrice', finalPrice.toFixed(2));
+        localStorage.setItem('deductAmount', deduct.toFixed(2));
+        document.getElementById('exchangePay').textContent = '₹ ' + deduct.toFixed(2);
+        document.getElementById('deliveryPay').textContent = '₹ ' + orig.toFixed(2);
     </script>
 </body>
 </html>

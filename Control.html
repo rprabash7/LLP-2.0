@@ -120,8 +120,8 @@
     </div>
     <div class="instruction-bar">Inspect Old Mobile</div>
     <div class="content">
-        <h1>[14] Buttons / SIM Tray in good condition?</h1>
-        <p>Select “No” if ANY button/SIM Tray is broken or missing</p>
+        <h1>[13] Battery Health ? </h1>
+        <p>Select 'No' if battery health is below < 80%.</p>
     </div>
     <div class="bottom-section">
         <button class="btn-yes" onclick="answer('yes')">Yes</button>
@@ -132,7 +132,7 @@
             if (val === 'no') {
                 let price = parseFloat(localStorage.getItem('originalPrice')) || 0;
                 let deduct = parseFloat(localStorage.getItem('deductionTotal')) || 0;
-                deduct += price * (3 / 100);
+                deduct += price * (9 / 100);
                 localStorage.setItem('deductionTotal', deduct);
             }
             window.location.href = 'Dent.html';

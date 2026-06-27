@@ -120,8 +120,8 @@
     </div>
     <div class="instruction-bar">Inspect Old Mobile</div>
     <div class="content">
-        <h1>[9] Screen has Less than 5 small scratches?</h1>
-        <p>Count small scratches on Screen. Select “No” if there are more than 5 scratches. [Small scratch is less than 1 cm. Your finger nail gets stuck in each scratch]</p>
+        <h1>[8] Screen has Less than 5 small scratches?</h1>
+        <p>Count small scratches on Screen. Select “No” if there are more than 5 scratches. [Your finger nail in each scratch]</p>
     </div>
     <div class="bottom-section">
         <button class="btn-yes" onclick="answer('yes')">Yes</button>
@@ -132,7 +132,7 @@
             if (val === 'no') {
                 let price = parseFloat(localStorage.getItem('originalPrice')) || 0;
                 let deduct = parseFloat(localStorage.getItem('deductionTotal')) || 0;
-                deduct += price * (2 / 100);
+                deduct += price * (4 / 100);
                 localStorage.setItem('deductionTotal', deduct);
             }
             window.location.href = 'Spots.html';

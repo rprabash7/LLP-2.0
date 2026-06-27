@@ -5,147 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Review & Submit</title>
     <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            min-height: 100vh;
-            background: #ffffff;
-        }
-
-        .page {
-            min-height: 100vh;
-            background: #ffffff;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .header {
-            background: #a9d8ee;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px 18px;
-        }
-
-        .menu-icon {
-            font-size: 26px;
-            color: #111;
-        }
-
-        .header-title {
-            font-size: 20px;
-            font-weight: bold;
-            color: #111;
-            letter-spacing: 1px;
-        }
-
-        .right-icons {
-            display: flex;
-            gap: 18px;
-        }
-
-        .right-icons span {
-            font-size: 22px;
-            color: #111;
-        }
-
-        .instruction-bar {
-            background: #232a31;
-            color: white;
-            padding: 14px 18px;
-            font-size: 15px;
-        }
-
-        .content {
-            flex: 1;
-            padding: 24px 18px;
-        }
-
-        .screen-title {
-            font-size: 24px;
-            font-weight: bold;
-            color: #1d2733;
-            margin-bottom: 18px;
-        }
-
-        .overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.45);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
-        }
-
-        .modal {
-            background: #fff;
-            width: 100%;
-            max-width: 520px;
-            border-radius: 2px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .modal-body {
-            padding: 34px 28px 26px;
-        }
-
-        .modal-body h2 {
-            margin: 0 0 14px;
-            font-size: 24px;
-            color: #1f2937;
-            font-weight: 700;
-        }
-
-        .modal-body p {
-            margin: 0;
-            font-size: 18px;
-            line-height: 1.5;
-            color: #2b2f33;
-        }
-
-        .modal-footer {
-            border-top: 1px solid #ddd;
-            padding: 20px 20px 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .btn-submit {
-            width: 100%;
-            padding: 18px;
-            font-size: 20px;
-            border: none;
-            border-radius: 4px;
-            background: #0f6f8c;
-            color: #fff;
-            cursor: pointer;
-        }
-
-        .btn-submit:hover {
-            background: #0c5d75;
-        }
-
-        .btn-back {
-            width: 100%;
-            padding: 16px;
-            font-size: 20px;
-            border: 2px solid #0f6f8c;
-            border-radius: 4px;
-            background: #fff;
-            color: #0f6f8c;
-            cursor: pointer;
-        }
-
-        .btn-back:hover {
-            background: #f4fbfd;
-        }
+        * { box-sizing: border-box; }
+        body { margin: 0; font-family: Arial, sans-serif; min-height: 100vh; background: #fff; }
+        .header { background: #a9d8ee; display: flex; align-items: center; justify-content: space-between; padding: 16px 18px; }
+        .menu-icon { font-size: 26px; color: #111; }
+        .header-title { font-size: 20px; font-weight: 700; color: #111; letter-spacing: 1px; }
+        .right-icons { display: flex; gap: 18px; }
+        .right-icons span { font-size: 22px; color: #111; }
+        .instruction-bar { background: #232a31; color: white; padding: 14px 18px; font-size: 15px; }
+        .page { min-height: 100vh; }
+        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,.45); display: flex; align-items: center; justify-content: center; padding: 24px; }
+        .modal { width: 100%; max-width: 520px; background: #fff; border-radius: 2px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,.2); }
+        .modal-body { padding: 34px 28px 26px; }
+        .modal-body h2 { margin: 0 0 14px; font-size: 24px; color: #1f2937; font-weight: 700; }
+        .modal-body p { margin: 0; font-size: 18px; line-height: 1.5; color: #2b2f33; }
+        .modal-footer { border-top: 1px solid #ddd; padding: 20px 20px 24px; display: flex; flex-direction: column; gap: 12px; }
+        .btn-submit { width: 100%; padding: 18px; font-size: 20px; border: none; border-radius: 4px; background: #0f6f8c; color: #fff; cursor: pointer; }
+        .btn-back { width: 100%; padding: 16px; font-size: 20px; border: 2px solid #0f6f8c; border-radius: 4px; background: #fff; color: #0f6f8c; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -153,17 +29,10 @@
         <div class="header">
             <div class="menu-icon">&#9776;</div>
             <div class="header-title">EXCHANGE</div>
-            <div class="right-icons">
-                <span>&#128172;</span>
-                <span>?</span>
-            </div>
+            <div class="right-icons"><span>&#128172;</span><span>?</span></div>
         </div>
-
         <div class="instruction-bar">Inspect Old Mobile</div>
-
-        <div class="content"></div>
     </div>
-
     <div class="overlay">
         <div class="modal">
             <div class="modal-body">
@@ -176,15 +45,9 @@
             </div>
         </div>
     </div>
-
     <script>
-        function goSubmit() {
-            window.location.href = 'Submit.html';
-        }
-
-        function goBack() {
-            window.location.href = 'Paint.html';
-        }
+        function goSubmit() { window.location.href = 'Submit.html'; }
+        function goBack() { window.location.href = 'Paint.html'; }
     </script>
 </body>
 </html>
