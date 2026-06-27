@@ -3,16 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LLP 2.0 - Exchange</title>
+    <title>Exchange</title>
     <style>
-        body { font-family: Arial, sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; background: #f5f5f5; }
-        h1 { font-size: 28px; margin-bottom: 30px; color: #222; }
-        button { padding: 12px 30px; font-size: 18px; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 6px; }
-        button:hover { background: #0056b3; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: #a9d8ee;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 18px;
+        }
+
+        .menu-icon,
+        .right-icons span {
+            font-size: 26px;
+            color: #111;
+            cursor: pointer;
+        }
+
+        .header-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #111;
+            letter-spacing: 1px;
+        }
+
+        .right-icons {
+            display: flex;
+            gap: 18px;
+        }
+
+        .instruction-bar {
+            background: #232a31;
+            color: white;
+            padding: 14px 18px;
+            font-size: 15px;
+        }
+
+        .content {
+            flex: 1;
+            padding: 32px 30px;
+        }
+
+        .content h1 {
+            font-size: 28px;
+            color: #1d2733;
+            margin-bottom: 18px;
+            line-height: 1.2;
+        }
+
+        .content p {
+            font-size: 17px;
+            color: #2d3742;
+            line-height: 1.7;
+        }
+
+        .bottom-section {
+            padding: 14px 18px 28px;
+            border-top: 1px solid #e5e5e5;
+            background: #fff;
+        }
+
+        .bottom-section button {
+            width: 100%;
+            padding: 18px;
+            font-size: 18px;
+            background: #0f6f8c;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .bottom-section button:hover {
+            background: #0c5d75;
+        }
     </style>
 </head>
 <body>
-    <h1>Inspect The Exchange Item</h1>
-    <button onclick="window.location.href='Mobile_Price.html'">Begin Inspection</button>
+
+    <div class="header">
+        <div class="menu-icon">&#9776;</div>
+        <div class="header-title">EXCHANGE</div>
+        <div class="right-icons">
+            <span>&#128172;</span>
+            <span>?</span>
+        </div>
+    </div>
+
+    <div class="instruction-bar">
+        Instructions
+    </div>
+
+    <div class="content">
+        <h1>Inspect the exchange item</h1>
+        <p>
+            We'll ask you to confirm details about the exchange item.
+            This helps us make sure the information we have about the item is correct.
+        </p>
+    </div>
+
+    <div class="bottom-section">
+        <button onclick="window.location.href='Mobile_Price.html'">Begin inspection</button>
+    </div>
+
 </body>
 </html>

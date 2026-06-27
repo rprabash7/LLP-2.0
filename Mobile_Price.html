@@ -3,27 +3,200 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mobile Price</title>
+    <title>Exchange - Mobile Price</title>
     <style>
-        body { font-family: Arial, sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; background: #f5f5f5; }
-        h1 { font-size: 22px; margin-bottom: 20px; color: #222; text-align: center; padding: 0 20px; }
-        input[type="number"] { padding: 10px; font-size: 16px; width: 250px; border: 1px solid #aaa; border-radius: 4px; margin-bottom: 20px; }
-        button { padding: 10px 25px; font-size: 16px; cursor: pointer; background: #28a745; color: white; border: none; border-radius: 6px; }
-        button:hover { background: #1e7e34; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: #a9d8ee;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 18px;
+        }
+
+        .menu-icon {
+            font-size: 26px;
+            color: #111;
+            cursor: pointer;
+        }
+
+        .header-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #111;
+            letter-spacing: 1px;
+        }
+
+        .right-icons {
+            display: flex;
+            gap: 18px;
+        }
+
+        .right-icons span {
+            font-size: 22px;
+            color: #111;
+            cursor: pointer;
+        }
+
+        .instruction-bar {
+            background: #232a31;
+            color: white;
+            padding: 14px 18px;
+            font-size: 15px;
+        }
+
+        .content {
+            flex: 1;
+            padding: 28px 22px;
+        }
+
+        .content h1 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1d2733;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .steps {
+            font-size: 16px;
+            color: #2d3742;
+            line-height: 1.9;
+            margin-bottom: 24px;
+        }
+
+        .input-box {
+            width: 100%;
+            padding: 16px 12px;
+            font-size: 16px;
+            border: 1.5px solid #999;
+            border-radius: 4px;
+            margin-bottom: 18px;
+            outline: none;
+        }
+
+        .input-box:focus {
+            border-color: #0f6f8c;
+        }
+
+        .info-note {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 14px;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        .info-icon {
+            font-size: 18px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .bottom-section {
+            padding: 14px 18px 28px;
+            border-top: 1px solid #e5e5e5;
+            background: #fff;
+        }
+
+        .bottom-section button {
+            width: 100%;
+            padding: 17px;
+            font-size: 18px;
+            background: #c9dce8;
+            color: #8a8a8a;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .bottom-section button.active {
+            background: #0f6f8c;
+            color: white;
+        }
     </style>
 </head>
 <body>
-    <h1>Enter Original Price Of Old Phone For Exchange</h1>
-    <input type="number" id="priceInput" placeholder="Enter amount here" />
-    <button onclick="submitPrice()">Submit</button>
+
+    <div class="header">
+        <div class="menu-icon">&#9776;</div>
+        <div class="header-title">EXCHANGE</div>
+        <div class="right-icons">
+            <span>&#128172;</span>
+            <span>?</span>
+        </div>
+    </div>
+
+    <div class="instruction-bar">
+        Inspect Old Mobile
+    </div>
+
+    <div class="content">
+        <h1>[2] Verify Exchange on old phone</h1>
+
+        <div class="steps">
+            1. Request customer to download the RABBIT EXCHANGE app from the Appstore / PlayStore on their used phone<br>
+            2. Ask customer to click 'Get started' by sharing START code {385668} with customer<br>
+            3. App will generate a completion code. Enter this code here:
+        </div>
+
+        <input
+            type="number"
+            id="priceInput"
+            class="input-box"
+            placeholder="Enter original price of old phone"
+            oninput="checkInput()"
+        >
+
+        <div class="info-note">
+            <div class="info-icon">&#9432;</div>
+            <div>Unable to verify? Use the Help Menu to cancel the exchange and don't pick up the parcel.</div>
+        </div>
+    </div>
+
+    <div class="bottom-section">
+        <button id="submitBtn" onclick="submitPrice()">Submit</button>
+    </div>
+
     <script>
+        function checkInput() {
+            const value = document.getElementById("priceInput").value;
+            const button = document.getElementById("submitBtn");
+
+            if (value && parseFloat(value) > 0) {
+                button.classList.add("active");
+            } else {
+                button.classList.remove("active");
+            }
+        }
+
         function submitPrice() {
-            const price = document.getElementById('priceInput').value;
-            if (!price || price <= 0) { alert('Please enter a valid amount!'); return; }
-            localStorage.setItem('originalPrice', price);
-            localStorage.setItem('deductionTotal', 0);
-            window.location.href = 'Screen_Original.html';
+            const price = document.getElementById("priceInput").value;
+
+            if (!price || parseFloat(price) <= 0) {
+                alert("Please enter a valid amount!");
+                return;
+            }
+
+            localStorage.setItem("originalPrice", price);
+            localStorage.setItem("deductionTotal", 0);
+            window.location.href = "Screen_Original.html";
         }
     </script>
+
 </body>
 </html>
