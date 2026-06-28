@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>UPI Payment</title><style>
+body{margin:0;font-family:Arial,sans-serif;background:#fff;min-height:100vh;display:flex;flex-direction:column}.header{background:#a9d8ee;display:flex;justify-content:space-between;align-items:center;padding:16px 18px}.header-title{font-size:20px;font-weight:700}.wrap{padding:22px 20px}.box{border-top:1px solid #ddd;border-bottom:1px solid #ddd;padding:22px 0;display:flex;justify-content:space-between;align-items:center}.amt{font-size:36px;font-weight:700;color:#9b1635}.upi{font-size:18px;color:#222;line-height:1.5;margin-top:14px}.qr{margin-top:18px;border:1px solid #ddd;border-radius:12px;padding:14px;text-align:center}.qr img{width:100%;max-width:280px;height:auto;border-radius:10px}.note{margin-top:14px;font-size:16px;color:#555;line-height:1.45}.btn{width:100%;padding:18px;border:none;border-radius:6px;background:#0f6f8c;color:#fff;font-size:20px;cursor:pointer}.bottom{padding:18px 20px 28px;margin-top:auto}
+</style></head><body><div class="header"><div>☰</div><div class="header-title">TRANSACTION</div><div>💬 ?</div></div><div class="wrap"><h1>Scan & pay</h1><div class="box"><div>Total due</div><div class="amt" id="upiAmt">₹0.00</div></div><div class="upi">UPI ID: <b>8639632255@ybl</b></div><div class="qr"><img id="qrImg" alt="UPI QR"><div class="bottom"><button class="btn" onclick="go()">Confirmed Payment</button></div><script>
+const a=parseFloat(localStorage.getItem('payAmount'))||0;document.getElementById('upiAmt').textContent='₹'+a.toFixed(2);
+const upiId='8639632255@ybl';const payeeName='LLP 2.0';const tn='Mobile Exchange Payment';const am=a.toFixed(2);
+const upiString=`upi://pay?pa=${upiId}&pn=${encodeURIComponent(payeeName)}&am=${am}&cu=INR&tn=${encodeURIComponent(tn)}`;
+document.getElementById('qrImg').src='https://api.qrserver.com/v1/create-qr-code/?size=280x280&data='+encodeURIComponent(upiString);
+function go(){location.href='Final_Success.html';}
+</script></body></html>

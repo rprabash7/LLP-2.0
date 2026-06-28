@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Continue Exchange</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#fff}
+.header{background:#a9d8ee;display:flex;align-items:center;justify-content:space-between;padding:16px 18px}
+.menu-icon,.right-icons span{font-size:26px;color:#111}
+.header-title{font-size:20px;font-weight:700;color:#111;letter-spacing:1px}
+.right-icons{display:flex;gap:18px}
+.instruction-bar{background:#232a31;color:#fff;padding:14px 18px;font-size:15px}
+.content{padding:18px 18px 0}
+h1{font-size:30px;line-height:1.2;color:#222;font-weight:700;margin:8px 0 22px}
+.warning{display:flex;align-items:center;gap:12px;background:#fff4c2;border:1px solid #e2c35a;border-radius:8px;padding:16px 14px;margin-bottom:20px}
+.warning-icon{font-size:24px;color:#d4a000}
+.warning-text{font-size:17px;line-height:1.45;color:#3a3a3a}
+.total{display:flex;justify-content:space-between;align-items:center;padding:24px 0;border-bottom:1px solid #ddd}
+.total-label{font-size:24px;color:#222}
+.total-amt{font-size:38px;font-weight:700;color:#9b1635}
+.option{display:flex;align-items:center;gap:18px;padding:20px 0;border-bottom:1px solid #ddd;cursor:pointer}
+.radio{width:40px;height:40px;border:2px solid #909090;border-radius:50%;flex:0 0 auto;position:relative;background:#fff}
+.radio.selected::after{content:'';position:absolute;inset:9px;background:#0f6f8c;border-radius:50%}
+.opt-wrap{flex:1}
+.opt-text{font-size:22px;color:#111}
+.option-sub{font-size:17px;line-height:1.4;color:#2d2d2d}
+.bottom{padding:22px 18px 28px}
+.continue-btn{width:100%;padding:18px;font-size:20px;border:none;border-radius:6px;background:#d9e6ef;color:#8f9baa}
+.continue-btn.active{background:#0f6f8c;color:#fff;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="header"><div class="menu-icon">&#9776;</div><div class="header-title">TRANSACTION</div><div class="right-icons"><span>&#128172;</span><span>?</span></div></div>
+<div class="instruction-bar">Payment</div>
+<div class="content">
+<h1>How does the customer want to pay?</h1>
+<div class="warning"><div class="warning-icon">⚠</div><div class="warning-text">Please collect the total due amount shown below.</div></div>
+<div class="total"><div class="total-label">Total due</div><div class="total-amt" id="dueAmt">₹0.00</div></div>
+<div class="option" onclick="selectOption('cash')"><div class="radio" id="r1"></div><div class="opt-wrap"><div class="opt-text">Cash</div><div class="option-sub">Customer pays in cash</div></div></div>
+<div class="option" onclick="selectOption('upi')"><div class="radio" id="r2"></div><div class="opt-wrap"><div class="opt-text">Paylink/UPI/Card</div><div class="option-sub">Customer pays via UPI or card</div></div></div>
+</div>
+<div class="bottom"><button class="continue-btn" id="continueBtn" disabled>Continue</button></div>
+<script>
+function num(v){const n=parseFloat(v);return Number.isFinite(n)?n:0;}
+const submitPay = num(localStorage.getItem('deductAmount')) || num(localStorage.getItem('payAmount')) || num(localStorage.getItem('finalPrice')) || 0;
+document.getElementById('dueAmt').textContent='₹'+submitPay.toFixed(2);
+localStorage.setItem('payAmount', submitPay.toFixed(2));
+let selected='';
+function clearSel(){['r1','r2'].forEach(id=>document.getElementById(id).classList.remove('selected'));}
+window.selectOption=function(val){
+selected=val;
+clearSel();
+document.getElementById(val==='cash'?'r1':'r2').classList.add('selected');
+const b=document.getElementById('continueBtn');
+b.disabled=false;
+b.classList.add('active');
+}
+document.getElementById('continueBtn').onclick=function(){
+if(!selected)return;
+if(selected==='cash') window.location.href='Cash_Payment.html';
+else window.location.href='UPI_Payment.html';
+};
+</script>
+</body>
+</html>
