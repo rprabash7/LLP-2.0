@@ -104,10 +104,18 @@ assessments.forEach((name, i) => {
 
 const statusIcon =
     ans === 'no'
-        ? '<span class="cross">❌</span>'
-        : '<span class="tick">✅</span>';
+        ? '<img src="images/wrong.png" alt="Wrong" style="width:24px;height:24px;object-fit:contain;vertical-align:middle;">'
+        : '<img src="images/tick.png" alt="Tick" style="width:24px;height:24px;object-fit:contain;vertical-align:middle;">';
   const tr = document.createElement('tr');
-  tr.innerHTML = `<td>${name}</td><td><span class="tick">&#9989;</span></td><td>${statusIcon}</td>`;
+  tr.innerHTML = `
+    <td>${name}</td>
+    <td>
+        <img src="images/tick.png"
+             alt="Tick"
+             style="width:24px;height:24px;object-fit:contain;vertical-align:middle;">
+    </td>
+    <td>${statusIcon}</td>
+`;
   tbody.appendChild(tr);
 });
 </script>
