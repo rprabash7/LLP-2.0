@@ -129,6 +129,7 @@
     </div>
     <script>
         function answer(val) {
+            localStorage.setItem("ans_10", val);
             if (val === 'no') {
                 let price = parseFloat(localStorage.getItem('originalPrice')) || 0;
                 let deduct = parseFloat(localStorage.getItem('deductionTotal')) || 0;

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Details</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f5f5f5}
+.header{background:#a9d8ee;display:flex;align-items:center;justify-content:space-between;padding:16px 18px}
+.header-title{font-size:20px;font-weight:700;color:#111;letter-spacing:1px}
+.right-icons{display:flex;gap:18px;font-size:24px}
+.section-title{font-size:16px;font-weight:700;text-align:center;padding:12px 0 6px;background:#fff;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin-bottom:0}
+.table{width:100%;border-collapse:collapse;background:#fff}
+.table td{padding:10px 16px;font-size:15px;border-bottom:1px solid #e0e0e0}
+.table td:first-child{color:#333}
+.table td:last-child{text-align:right;font-weight:500;color:#111}
+.revised{color:#2e7d32 !important;font-weight:700 !important}
+.amount-paid{font-weight:700 !important}
+.info-box{margin:14px 14px 0;border:1px solid #ccc;border-radius:8px;padding:14px 16px;background:#fff;font-size:15px;line-height:1.5;color:#222}
+.assess-wrap{background:#fff;margin-top:14px}
+.assess-title{font-size:16px;font-weight:700;text-align:center;padding:12px 0 6px;border-top:1px solid #ccc;border-bottom:1px solid #ccc}
+.assess-table{width:100%;border-collapse:collapse}
+.assess-table th{font-size:13px;font-weight:700;padding:8px 10px;background:#fff;border-bottom:1px solid #ddd;text-align:center}
+.assess-table th:first-child{text-align:left}
+.assess-table td{font-size:14px;padding:9px 10px;border-bottom:1px solid #eee;text-align:center;vertical-align:middle}
+.assess-table td:first-child{text-align:left}
+.tick{color:#2e7d32;font-size:20px}
+.cross{color:#c62828;font-size:20px}
+.bottom{background:#fff;padding:14px 16px 28px;border-top:1px solid #ddd;margin-top:14px}
+.continue-btn{width:100%;padding:16px;border:none;border-radius:8px;background:#0f6f8c;color:#fff;font-size:18px;font-weight:700;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="header">
+  <span style="font-size:26px">&#9776;</span>
+  <div class="header-title">EXCHANGE</div>
+  <div class="right-icons"><span>&#128172;</span><span>&#9432;</span></div>
+</div>
+
+<div class="section-title">DISCOUNT DETAILS</div>
+<table class="table">
+  <tr><td>Original Exchange Discount</td><td id="origDiscount">₹0</td></tr>
+  <tr><td>Revised Exchange Discount</td><td id="revisedDiscount" class="revised">₹0</td></tr>
+  <tr><td><b>Amount to be Paid</b></td><td id="amountPaid" class="amount-paid">₹0</td></tr>
+</table>
+
+<div class="info-box" id="infoBox">Functional tests passed, check the Rabbit Exchange App for details</div>
+
+<div class="assess-wrap">
+  <div class="assess-title">PHYSICAL ASSESSMENT SUMMARY</div>
+  <table class="assess-table">
+    <tr>
+      <th>Assessment Name</th>
+      <th>Pre-Purchase<br>Declaration</th>
+      <th>Status</th>
+    </tr>
+    <tbody id="assessBody"></tbody>
+  </table>
+</div>
+
+<div class="bottom">
+  <button class="continue-btn" onclick="location.href='Submit.html'">Continue</button>
+</div>
+
+<script>
+const assessments = [
+  '[3] Is screen original?',
+  '[4] Is screen in good condition?',
+  '[5] Screen free of any lines?',
+  '[6] Screen free of discoloration?',
+  '[7] Screen free of big scratches?',
+  '[8] Screen has Less than 5 small scratches?',
+  '[9] Screen has less than 1 spots?',
+  '[10] Phone body flat?',
+  '[11] Phone panel in good condition?',
+  '[12] Camera glass in good condition?',
+  '[13] Battery Health?',
+  '[14] No dent on phone body?',
+  '[15] Body free of big scratches?',
+  '[16] Body has Less than 5 small scratches?',
+  '[17] Body paint in good condition?'
+];
+
+const keys = [
+  'ans_3','ans_4','ans_5','ans_6','ans_7','ans_8','ans_9',
+  'ans_10','ans_11','ans_12','ans_13','ans_14','ans_15','ans_16','ans_17'
+];
+
+function num(v){const n=parseFloat(v);return Number.isFinite(n)?n:0;}
+
+const orig = num(localStorage.getItem('originalPrice'));
+const deduct = num(localStorage.getItem('deductionTotal'));
+const revised = Math.max(orig - deduct, 0);
+const amtPaid = deduct;
+
+document.getElementById('origDiscount').textContent = '₹' + orig.toFixed(0);
+document.getElementById('revisedDiscount').textContent = '₹' + revised.toFixed(0);
+document.getElementById('amountPaid').textContent = '₹' + amtPaid.toFixed(0);
+
+const tbody = document.getElementById('assessBody');
+assessments.forEach((name, i) => {
+  const ans = localStorage.getItem(keys[i]);
+
+const statusIcon =
+    ans === 'no'
+        ? '<span class="cross">❌</span>'
+        : '<span class="tick">✅</span>';
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td>${name}</td><td><span class="tick">&#9989;</span></td><td>${statusIcon}</td>`;
+  tbody.appendChild(tr);
+});
+</script>
+</body>
+</html>
