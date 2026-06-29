@@ -1,1 +1,74 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Success</title><style>body{margin:0;font-family:Arial,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f5f5f5}.card{background:#fff;padding:28px;border-radius:14px;box-shadow:0 8px 30px rgba(0,0,0,.08);text-align:center;max-width:360px;width:calc(100% - 32px)}.tick{font-size:56px;margin-bottom:10px}.title{font-size:28px;font-weight:700;color:#111}.sub{margin-top:10px;font-size:18px;color:#444}.btn{margin-top:18px;width:100%;padding:16px;border:none;border-radius:8px;background:#0f6f8c;color:#fff;font-size:18px}</style></head><body><div class="card"><div class="tick">✅</div><div class="title">Payment Marked Successful</div><button class="btn" onclick="location.href='Submit.html'">Back</button></div></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Success</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;min-height:100vh;background:#f5f7fb;overflow:hidden}
+.confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.ribbon{position:absolute;top:-40px;width:10px;height:70px;border-radius:10px;opacity:.95;animation:fall 4.2s linear infinite}
+.r1{left:8%;background:#f06a6a;animation-delay:0s}.r2{left:18%;background:#ffb347;animation-delay:.6s}.r3{left:30%;background:#68c56f;animation-delay:1.1s}.r4{left:44%;background:#f06a6a;animation-delay:1.7s}.r5{left:58%;background:#ffb347;animation-delay:.2s}.r6{left:72%;background:#68c56f;animation-delay:1s}.r7{left:84%;background:#f06a6a;animation-delay:1.5s}.r8{left:92%;background:#ffb347;animation-delay:.9s}
+@keyframes fall{0%{transform:translateY(-120px) rotate(0deg)}100%{transform:translateY(120vh) rotate(260deg)}}
+.wrap{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;justify-content:space-between;padding:20px 16px 16px}
+.topcard{background:#fff;border-radius:18px;padding:30px 18px 22px;box-shadow:0 8px 30px rgba(0,0,0,.06);text-align:center;position:relative;overflow:hidden}
+.balloons{position:absolute;inset:0;pointer-events:none}
+.balloon{position:absolute;width:22px;height:30px;border-radius:50%;animation:float 5s ease-in-out infinite}
+.balloon:after{content:'';position:absolute;left:50%;top:28px;width:1px;height:30px;background:rgba(0,0,0,.18)}
+.b1{left:18%;top:-10px;background:#ff7b7b;animation-delay:0s}.b2{left:72%;top:0;background:#ffa94d;animation-delay:1s}.b3{left:46%;top:6px;background:#6bcf6b;animation-delay:2s}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}
+.icon-container{position:relative;width:88px;height:88px;margin:0 auto 14px}
+.success-ring,.success-check{position:absolute;inset:0;width:100%;height:100%}
+.circle{stroke:#21b14b;stroke-width:4;stroke-miterlimit:10;fill:none;stroke-dasharray:166;stroke-dashoffset:166;animation:drawCircle .65s ease-out forwards}
+.check{stroke:#21b14b;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;fill:none;stroke-dasharray:48;stroke-dashoffset:48;animation:drawCheck .32s .55s ease-out forwards}
+@keyframes drawCircle{to{stroke-dashoffset:0}}
+@keyframes drawCheck{to{stroke-dashoffset:0}}
+.title{font-size:30px;font-weight:700;color:#18a318;line-height:1.1;margin-top:2px}
+.sub{font-size:18px;color:#222;margin-top:4px}
+.card2{margin-top:14px;background:#fff;border-radius:18px;padding:26px 18px 22px;box-shadow:0 8px 30px rgba(0,0,0,.06);text-align:center}
+.logo{height:54px;width:auto;display:block;margin:0 auto 18px}
+.amount{font-size:34px;font-weight:700;color:#ef8a1a;letter-spacing:.2px;margin-top:4px}
+.view{margin-top:14px;display:inline-block;padding:12px 24px;border-radius:999px;border:2px solid #6f59c5;color:#6f59c5;font-size:20px;font-weight:700;background:#fff}
+.home{margin-top:auto;background:#6952e0;color:#fff;border-radius:8px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 6px 18px rgba(105,82,224,.25)}
+.home h3{font-size:30px;line-height:1;margin-bottom:4px}.home p{font-size:18px;opacity:.95}
+.arrow{width:44px;height:44px;border-radius:50%;background:#fff;color:#6952e0;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700}
+.raz{display:flex;justify-content:center;align-items:center;padding:8px 0 0}.raz img{height:26px;width:auto}
+</style>
+</head>
+<body>
+<div class="confetti">
+  <div class="ribbon r1"></div><div class="ribbon r2"></div><div class="ribbon r3"></div><div class="ribbon r4"></div>
+  <div class="ribbon r5"></div><div class="ribbon r6"></div><div class="ribbon r7"></div><div class="ribbon r8"></div>
+</div>
+<div class="wrap">
+  <div>
+    <div class="topcard">
+      <div class="balloons"><div class="balloon b1"></div><div class="balloon b2"></div><div class="balloon b3"></div></div>
+      <div class="icon-container">
+        <svg class="success-ring" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+          <circle class="circle" cx="26" cy="26" r="25"></circle>
+        </svg>
+        <svg class="success-check" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+          <path class="check" d="M14.1 27.2l7.1 7.2 16.7-16.8"></path>
+        </svg>
+      </div>
+      <div class="title">Payment Successful</div>
+    </div>
+    <div class="card2">
+      <img src="images/BHIM_Arrow.png" alt="BHIM" class="logo">
+      <div class="amount" id="amt">₹ 0.00</div>
+      <div class="view">View Details</div>
+    </div>
+  </div>
+  <div>
+    <div class="home"><div><h3>Home</h3><p>Proceed to home page</p></div><div class="arrow">→</div></div>
+    <div class="raz"><img src="images/razorpay-icon.svg" alt="Razorpay"></div>
+  </div>
+</div>
+<script>
+const a=parseFloat(localStorage.getItem('payAmount'))||parseFloat(localStorage.getItem('finalPrice'))||0;
+document.getElementById('amt').textContent='₹ '+a.toFixed(2);
+</script>
+</body>
+</html>
