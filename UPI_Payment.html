@@ -87,7 +87,7 @@ body{margin:0;font-family:Arial,sans-serif;background:#fff;min-height:100vh;disp
 <div class="confirmwrap"><button class="btn" onclick="go()">Confirmed Payment</button></div>
 <script>
 const a=parseFloat(localStorage.getItem('payAmount'))||0;document.getElementById('upiAmt').textContent=a.toFixed(2);
-const upiId='jayachandra77821@axl';const payeeName='LLP 2.0';const tn='Mobile Exchange Payment';const am=a.toFixed(2);
+const upiId='jayachandra77825@ibl';const payeeName='LLP 2.0';const tn='Mobile Exchange Payment';const am=a.toFixed(2);
 const upiString=`upi://pay?pa=${upiId}&pn=${encodeURIComponent(payeeName)}&am=${am}&cu=INR&tn=${encodeURIComponent(tn)}`;
 document.getElementById('qrImg').src='https://api.qrserver.com/v1/create-qr-code/?size=360x360&data='+encodeURIComponent(upiString);
 function go(){location.href='Final_Success.html';}
